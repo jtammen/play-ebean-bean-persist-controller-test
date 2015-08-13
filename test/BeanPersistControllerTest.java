@@ -5,10 +5,10 @@ import static play.test.Helpers.running;
 
 import org.junit.Test;
 
-import models.AnotherEntity;
-import models.Child;
-import models.DependentEntitiy;
-import models.Parent;
+import models.A;
+import models.B;
+import models.C;
+import models.D;
 
 public class BeanPersistControllerTest {
 	@Test
@@ -16,15 +16,15 @@ public class BeanPersistControllerTest {
 		running(fakeApplication(inMemoryDatabase()), new Runnable() {
 			@Override
 			public void run() {
-				final Parent p = new Parent("Parent");
-				p.children.add(new Child("C1"));
-				p.save();
+				final A a = new A("Parent");
+				a.children.add(new B("B"));
+				a.save();
 
-				final AnotherEntity ae = new AnotherEntity("AE1");
-				ae.save();
-				new DependentEntitiy("DE1", ae).save();
+				final C c = new C("C");
+				c.save();
+				new D("D", c).save();
 
-				p.delete();
+				a.delete();
 			}
 		});
 	}

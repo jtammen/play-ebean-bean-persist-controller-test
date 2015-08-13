@@ -13,8 +13,8 @@ import play.Logger;
 import play.db.ebean.Model;
 
 @Entity
-public class Child extends Model {
-	public Child(final String name) {
+public class B extends Model {
+	public B(final String name) {
 		this.name = name;
 	}
 
@@ -26,13 +26,13 @@ public class Child extends Model {
 	public final String name;
 
 	@ManyToOne(optional = false)
-	public Parent parent;
+	public A parent;
 
 	@PreDestroy
 	public void preDestroy(final EbeanServer server, final Transaction tx) {
-		Logger.debug("Child.preDestroy(server: {}, tx: {})", server, tx);
+		Logger.debug("B.preDestroy(server: {}, tx: {})", server, tx);
 
-		final Query<AnotherEntity> query = server.find(AnotherEntity.class);
+		final Query<C> query = server.find(C.class);
 		server.delete(server.findList(query, tx).iterator(), tx);
 	}
 }

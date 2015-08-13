@@ -7,9 +7,10 @@ import javax.persistence.OneToOne;
 import play.db.ebean.Model;
 
 @Entity
-public class AnotherEntity extends Model {
-	public AnotherEntity(final String name) {
+public class D extends Model {
+	public D(final String name, final C c) {
 		this.name = name;
+		this.c = c;
 	}
 
 	private static final long serialVersionUID = 1L;
@@ -19,6 +20,6 @@ public class AnotherEntity extends Model {
 
 	public final String name;
 
-	@OneToOne(optional = false, mappedBy = "parent")
-	public DependentEntitiy dep;
+	@OneToOne(optional = false)
+	public C c;
 }

@@ -14,38 +14,38 @@ public class EbeanServerConfigStartup implements ServerConfigStartup {
 	public static final class ChildBeanPersistController extends BeanPersistAdapter {
 		@Override
 		public boolean isRegisterFor(final Class<?> cls) {
-			return cls.isAssignableFrom(Child.class);
+			return cls.isAssignableFrom(B.class);
 		}
 
 		@Override
 		public void postDelete(final BeanPersistRequest<?> request) {
-			Logger.debug("ChildBeanPersistController.postDelete(request: {})", request);
+			Logger.debug("B.postDelete(request: {})", request);
 			super.postDelete(request);
 		}
 
 		@Override
 		public boolean preDelete(final BeanPersistRequest<?> request) {
-			Logger.debug("ChildBeanPersistController.preDelete(request: {})", request);
+			Logger.debug("B.preDelete(request: {})", request);
 			return super.preDelete(request);
 		}
 	}
 
-	public final static class ChildBeanPersistListener implements BeanPersistListener<Child> {
+	public final static class ChildBeanPersistListener implements BeanPersistListener<B> {
 		@Override
-		public boolean inserted(final Child bean) {
-			Logger.debug("ChildBeanPersistListener.inserted(bean: {})", bean);
+		public boolean inserted(final B bean) {
+			Logger.debug("B.inserted(bean: {})", bean);
 			return false;
 		}
 
 		@Override
-		public boolean updated(final Child bean, final Set<String> updatedProperties) {
-			Logger.debug("ChildBeanPersistListener.updated(bean: {})", bean);
+		public boolean updated(final B bean, final Set<String> updatedProperties) {
+			Logger.debug("B.updated(bean: {})", bean);
 			return false;
 		}
 
 		@Override
-		public boolean deleted(final Child bean) {
-			Logger.debug("ChildBeanPersistListener.deleted(bean: {})", bean);
+		public boolean deleted(final B bean) {
+			Logger.debug("B.deleted(bean: {})", bean);
 			return false;
 		}
 

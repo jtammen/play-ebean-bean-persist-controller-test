@@ -15,8 +15,8 @@ import play.Logger;
 import play.db.ebean.Model;
 
 @Entity
-public class Parent extends Model {
-	public Parent(final String name) {
+public class A extends Model {
+	public A(final String name) {
 		this.name = name;
 	}
 
@@ -28,11 +28,11 @@ public class Parent extends Model {
 	public final String name;
 
 	@OneToMany(mappedBy = "parent", cascade = CascadeType.PERSIST)
-	public List<Child> children;
+	public List<B> children;
 
 	@PreDestroy
 	public void preDestroy(final EbeanServer server, final Transaction tx) {
-		Logger.debug("Parent.preDestroy(server: {}, tx: {})", server, tx);
+		Logger.debug("A.preDestroy(server: {}, tx: {})", server, tx);
 
 		server.delete(children.iterator(), tx);
 	}

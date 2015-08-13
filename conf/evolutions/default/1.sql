@@ -3,44 +3,44 @@
 
 # --- !Ups
 
-create table another_entity (
+create table a (
   id                        bigint not null,
   name                      varchar(255),
-  constraint pk_another_entity primary key (id))
+  constraint pk_a primary key (id))
 ;
 
-create table child (
-  id                        bigint not null,
-  name                      varchar(255),
-  parent_id                 bigint not null,
-  constraint pk_child primary key (id))
-;
-
-create table dependent_entitiy (
+create table b (
   id                        bigint not null,
   name                      varchar(255),
   parent_id                 bigint not null,
-  constraint pk_dependent_entitiy primary key (id))
+  constraint pk_b primary key (id))
 ;
 
-create table parent (
+create table c (
   id                        bigint not null,
   name                      varchar(255),
-  constraint pk_parent primary key (id))
+  constraint pk_c primary key (id))
 ;
 
-create sequence another_entity_seq;
+create table d (
+  id                        bigint not null,
+  name                      varchar(255),
+  c_id                      bigint not null,
+  constraint pk_d primary key (id))
+;
 
-create sequence child_seq;
+create sequence a_seq;
 
-create sequence dependent_entitiy_seq;
+create sequence b_seq;
 
-create sequence parent_seq;
+create sequence c_seq;
 
-alter table child add constraint fk_child_parent_1 foreign key (parent_id) references parent (id) on delete restrict on update restrict;
-create index ix_child_parent_1 on child (parent_id);
-alter table dependent_entitiy add constraint fk_dependent_entitiy_parent_2 foreign key (parent_id) references another_entity (id) on delete restrict on update restrict;
-create index ix_dependent_entitiy_parent_2 on dependent_entitiy (parent_id);
+create sequence d_seq;
+
+alter table b add constraint fk_b_parent_1 foreign key (parent_id) references a (id) on delete restrict on update restrict;
+create index ix_b_parent_1 on b (parent_id);
+alter table d add constraint fk_d_c_2 foreign key (c_id) references c (id) on delete restrict on update restrict;
+create index ix_d_c_2 on d (c_id);
 
 
 
@@ -48,21 +48,21 @@ create index ix_dependent_entitiy_parent_2 on dependent_entitiy (parent_id);
 
 SET REFERENTIAL_INTEGRITY FALSE;
 
-drop table if exists another_entity;
+drop table if exists a;
 
-drop table if exists child;
+drop table if exists b;
 
-drop table if exists dependent_entitiy;
+drop table if exists c;
 
-drop table if exists parent;
+drop table if exists d;
 
 SET REFERENTIAL_INTEGRITY TRUE;
 
-drop sequence if exists another_entity_seq;
+drop sequence if exists a_seq;
 
-drop sequence if exists child_seq;
+drop sequence if exists b_seq;
 
-drop sequence if exists dependent_entitiy_seq;
+drop sequence if exists c_seq;
 
-drop sequence if exists parent_seq;
+drop sequence if exists d_seq;
 
